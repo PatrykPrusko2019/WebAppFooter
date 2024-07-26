@@ -1,11 +1,5 @@
 ﻿@model IEnumerable<WebAppFooter.Models.FooterDto>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -61,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.LogoChange)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="GenerateFileHtml" asp-route-id="@item.Id">GenerateFileHtml</a>
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="GenerateFileHtml" asp-route-id="@item.Id">GenerateFileHtml</a>
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
