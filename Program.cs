@@ -42,6 +42,7 @@ namespace WebAppFooter
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseNotyf();
 
             app.UseAuthorization();
