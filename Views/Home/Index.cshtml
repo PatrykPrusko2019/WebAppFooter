@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<WebAppFooter.Models.FooterDto>
 
+<form action="/Home/UploadFile" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".txt" />
+    <button type="submit">Upload File</button>
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
