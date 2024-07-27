@@ -52,16 +52,36 @@ namespace WebAppFooter.Controllers
         [HttpGet]
         public async Task<IActionResult> GenerateFileHtml(int id)
         {
-            var footer = await footerRepository.GetFooterById(id);
+            //var footer = await footerRepository.GetFooterById(id);
 
-            var footerDto = mapper.Map<FooterDto>(footer);
+            //var footerDto = mapper.Map<FooterDto>(footer);
 
-            var bytes = WebAppFooter.GenerateFileHtml.GenerateFileHtml.GetNewFileHtml(footerDto);
+            //var bytes = WebAppFooter.GenerateFileHtml.GenerateFileHtml.GetNewFileHtml(footerDto);
 
-            // set name of file html
-            string fileName = $"{footerDto.SiteChange}.html";
+            //// set name of file html
+            //string fileName = $"{footerDto.SiteChange}.html";
 
-            return File(bytes, "text/html", fileName);
+            //return File(bytes, "text/html", fileName);
+
+            try
+            {
+                var footer = await footerRepository.GetFooterById(id);
+                if (footer == null)
+                {
+                    return NotFound("Footer not found for the provided ID.");
+                }
+
+                var footerDto = mapper.Map<FooterDto>(footer);
+                var bytes = WebAppFooter.GenerateFileHtml.GenerateFileHtml.GetNewFileHtml(footerDto);
+
+                string fileName = $"{footerDto.SiteChange}.html";
+                return File(bytes, "text/html", fileName);
+            }
+            catch (Exception ex)
+            {
+                // Logowanie błędu do systemu monitorującego lub bazy danych
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
         }
 
         [HttpPost]

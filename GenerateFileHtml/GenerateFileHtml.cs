@@ -11,7 +11,7 @@ namespace WebAppFooter.GenerateFileHtml
         public static byte[] GetNewFileHtml(FooterDto footerDto)
         {
             
-            string footerString = File.ReadAllText("Template/template.html");
+            string footerString = File.ReadAllText("wwwroot/Template/template.html");
 
             footerString = footerString.Replace("NameSurnameChange", footerDto.NameSurnameChange);
             footerString = footerString.Replace("SiteChange", footerDto.SiteChange);
