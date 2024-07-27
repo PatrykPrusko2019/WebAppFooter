@@ -1,10 +1,11 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
-using Dynamicweb;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using WebAppFooter.Data;
 using WebAppFooter.Mappings;
 using WebAppFooter.Repositories;
+
 
 namespace WebAppFooter
 {
@@ -19,10 +20,12 @@ namespace WebAppFooter
 
             builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
 
-            builder.Services.AddDbContext<DataContext>(opt =>
-            {
-                opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
+            builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection"),
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                }));
 
             builder.Services.AddScoped<IFooterRepository, FooterRepository>();
 
